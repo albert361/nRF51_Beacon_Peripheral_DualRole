@@ -430,6 +430,14 @@ static void services_init(void)
     service_battery_init();
 }
 
+static void gpio_init(void)
+{
+    // Configure leds.
+    LEDS_CONFIGURE((BSP_LED_3_MASK));
+
+    // Turn leds off.
+    LEDS_OFF((BSP_LED_3_MASK));
+}
 
 /**
  * @brief Function for application main entry.
@@ -442,6 +450,7 @@ int main(void)
     APP_TIMER_INIT(APP_TIMER_PRESCALER, APP_TIMER_MAX_TIMERS, APP_TIMER_OP_QUEUE_SIZE, false);
     err_code = bsp_init(BSP_INIT_LED, APP_TIMER_TICKS(100, APP_TIMER_PRESCALER), NULL);
     APP_ERROR_CHECK(err_code);
+    gpio_init();
     ble_stack_init();
     device_manager_init(erase_bonds);
     gap_params_init();

@@ -365,7 +365,7 @@
               <MiscControls>--c99</MiscControls>
               <Define>BLE_STACK_SUPPORT_REQD S110 BOARD_PCA10028 SOFTDEVICE_PRESENT NRF51 SWI_DISABLE0</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\config;..\..\..\..\..\..\components\softdevice\s110\headers;..\..\..\..\..\bsp;..\..\..\..\..\..\components\ble\common;..\..\..\..\..\..\components\ble\ble_advertising;..\..\..\..\..\..\components\device;..\..\..\..\..\..\components\toolchain;..\..\..\..\..\..\components\libraries\util;..\..\..\..\..\..\components\libraries\button;..\..\..\..\..\..\components\drivers_nrf\gpiote;..\..\..\..\..\..\components\drivers_nrf\config;..\..\..\..\..\..\components\drivers_nrf\common;..\..\..\..\..\..\components\drivers_nrf\hal;..\..\..\..\..\..\components\ble\device_manager;..\..\..\..\..\..\components\softdevice\common\softdevice_handler;..\..\..\..\..\..\components\libraries\timer;..\..\..\..\..\..\components\libraries\trace;..\..\..\..\..\..\components\drivers_nrf\pstorage;..\..\..\..\..\..\components\drivers_nrf\uart;..\..\..\..\..\..\components\libraries\fifo</IncludePath>
+              <IncludePath>..\..\..\config;..\..\..\..\..\..\components\softdevice\s110\headers;..\..\..\..\..\bsp;..\..\..\..\..\..\components\ble\common;..\..\..\..\..\..\components\ble\ble_advertising;..\..\..\..\..\..\components\device;..\..\..\..\..\..\components\toolchain;..\..\..\..\..\..\components\libraries\util;..\..\..\..\..\..\components\libraries\button;..\..\..\..\..\..\components\drivers_nrf\gpiote;..\..\..\..\..\..\components\drivers_nrf\config;..\..\..\..\..\..\components\drivers_nrf\common;..\..\..\..\..\..\components\drivers_nrf\hal;..\..\..\..\..\..\components\ble\device_manager;..\..\..\..\..\..\components\softdevice\common\softdevice_handler;..\..\..\..\..\..\components\libraries\timer;..\..\..\..\..\..\components\libraries\trace;..\..\..\..\..\..\components\drivers_nrf\pstorage;..\..\..\..\..\..\components\drivers_nrf\uart;..\..\..\..\..\..\components\libraries\fifo;..\..\..\..\..\..\components\ble\ble_services\ble_bas</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -455,6 +455,16 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+            <File>
+              <FileName>ble_srv_doorlock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ble_srv_doorlock.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_srv_battery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ble_srv_battery.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -682,6 +692,11 @@
               <FileName>device_manager_peripheral.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\components\ble\device_manager\device_manager_peripheral.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_bas.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\components\ble\ble_services\ble_bas\ble_bas.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1679,6 +1694,16 @@
                 </FileArmAds>
               </FileOption>
             </File>
+            <File>
+              <FileName>ble_srv_doorlock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ble_srv_doorlock.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_srv_battery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\ble_srv_battery.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1905,6 +1930,11 @@
               <FileName>device_manager_peripheral.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\components\ble\device_manager\device_manager_peripheral.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_bas.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\components\ble\ble_services\ble_bas\ble_bas.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -11,7 +11,6 @@
 
 ble_doorlock_t          m_doorlock;
 ble_doorlock_init_t     m_doorlock_init;
-volatile int            xxx = 0;
 
 /**@brief Function for handling the Connect event. 
  * 
@@ -130,15 +129,15 @@ static uint32_t lock_char_add(ble_doorlock_t * p_doorlock, const ble_doorlock_in
                                                 &p_doorlock->lock_char_handles); 
  } 
 
-static void lock_control_handler(ble_doorlock_t * p_doorlock, uint8_t led_state) 
+static void lock_control_handler(ble_doorlock_t * p_doorlock, uint8_t state) 
 { 
-    if (led_state) 
+    if (state) 
     { 
-        xxx++;
+        LEDS_ON((BSP_LED_3_MASK));
     } 
     else 
     { 
-        xxx++;
+        LEDS_OFF((BSP_LED_3_MASK));
     } 
 } 
 
