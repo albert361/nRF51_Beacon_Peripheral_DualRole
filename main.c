@@ -32,6 +32,8 @@
 #include "pstorage.h"
 #include "bsp.h"
 #include "app_timer.h"
+#include "ble_srv_doorlock.h"
+#include "ble_srv_battery.h"
 
 #define IS_SRVC_CHANGED_CHARACT_PRESENT 0                                           /**< Include or not the service_changed characteristic. if not enabled, the server's database cannot be changed for the lifetime of the device*/
             
@@ -223,13 +225,9 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
 {
     dm_ble_evt_handler(p_ble_evt);
     ble_conn_params_on_ble_evt(p_ble_evt);
-    //bsp_btn_ble_on_ble_evt(p_ble_evt);
     on_ble_evt(p_ble_evt);
     //ble_advertising_on_ble_evt(p_ble_evt);
-    /*YOUR_JOB add calls to _on_ble_evt functions from each service your application is using
-    ble_xxs_on_ble_evt(&m_xxs, p_ble_evt);
-    ble_yys_on_ble_evt(&m_yys, p_ble_evt);
-    */
+    ble_doorlock_on_ble_evt(p_ble_evt);
 }
 
 /**@brief Function for dispatching a system event to interested modules.
@@ -422,6 +420,17 @@ static void conn_params_init(void)
     APP_ERROR_CHECK(err_code);
 }
 
+/**@brief Function for initializing services that will be used by the application.
+ *
+ * @details Initialize the Blood Pressure, Battery, and Device Information services.
+ */
+static void services_init(void)
+{
+    service_doorlock_init();
+    service_battery_init();
+}
+
+
 /**
  * @brief Function for application main entry.
  */
@@ -437,7 +446,7 @@ int main(void)
     device_manager_init(erase_bonds);
     gap_params_init();
     advertising_init();
-    /* Services and Characteristics */
+    services_init();
     conn_params_init();
 
     // Start execution.
