@@ -2,15 +2,21 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
+#include "main.h"
 #include "ble.h"
 #include "ble_srv_common.h"
 #include "ble_date_time.h"
 #include "ble_srv_doorlock.h"
 #include "bsp.h"
 #include "nordic_common.h"
+#include "app_timer.h"
+
+#define APP_CFG_CHAR_LOCK_TIMEOUT       5000
 
 ble_doorlock_t          m_doorlock;
 ble_doorlock_init_t     m_doorlock_init;
+
+static app_timer_id_t   m_lock_timer_id = 0xFFFFFFFF;                                   /**< Lock timer. */
 
 /**@brief Function for handling the Connect event. 
  * 
@@ -129,14 +135,41 @@ static uint32_t lock_char_add(ble_doorlock_t * p_doorlock, const ble_doorlock_in
                                                 &p_doorlock->lock_char_handles); 
  } 
 
+static void lock_timeout_handler(void * p_context) 
+{ 
+    uint32_t err_code; 
+    UNUSED_PARAMETER(p_context); 
+
+    // Lock door
+    LEDS_OFF((BSP_LED_3_MASK));
+    
+    err_code = app_timer_stop(m_lock_timer_id);  
+    APP_ERROR_CHECK(err_code);
+} 
+ 
 static void lock_control_handler(ble_doorlock_t * p_doorlock, uint8_t state) 
 { 
+    uint32_t             err_code;
     if (state) 
     { 
+        // Open door
         LEDS_ON((BSP_LED_3_MASK));
+        // Start timer
+        if (m_lock_timer_id != 0xFFFFFFFF) {
+            err_code = app_timer_stop(m_lock_timer_id);
+            APP_ERROR_CHECK(err_code);
+        } else {
+            err_code = app_timer_create(&m_lock_timer_id, 
+                                        APP_TIMER_MODE_SINGLE_SHOT, 
+                                        lock_timeout_handler); 
+            APP_ERROR_CHECK(err_code); 
+        }
+        err_code = app_timer_start(m_lock_timer_id, APP_TIMER_TICKS(APP_CFG_CHAR_LOCK_TIMEOUT, APP_TIMER_PRESCALER), NULL);
+        APP_ERROR_CHECK(err_code);
     } 
     else 
     { 
+        // Lock door
         LEDS_OFF((BSP_LED_3_MASK));
     } 
 } 
